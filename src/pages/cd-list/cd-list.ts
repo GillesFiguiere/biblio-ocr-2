@@ -17,10 +17,6 @@ export class CdListPage {
 
   ionViewWillEnter() {
     this.cdsList = this.itemsService.cdsList.slice();
-    this.cdsList.forEach( cd => {
-      console.log(cd.title);
-    });
-    
   }
 
   onLoadCd(index: number) {

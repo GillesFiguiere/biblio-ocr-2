@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { BookListPage } from '../book-list/book-list';
 import { CdListPage } from '../cd-list/cd-list';

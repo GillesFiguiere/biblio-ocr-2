@@ -1,5 +1,8 @@
+import { Book } from "../models/book";
+import { Cd } from "../models/cd";
+
 export class ItemsService {
-    booksList = [
+    booksList: Book[] = [
         {
             title: "The Time Machine",
             author: "H. G. Wells",
@@ -23,7 +26,7 @@ export class ItemsService {
         }
     ];
 
-    cdsList = [
+    cdsList: Cd[] = [
         {
             title: "Showbiz",
             author: "Muse",
@@ -43,4 +46,12 @@ export class ItemsService {
             isLent: false
         }
     ];
+
+    toggleBookIsLent(index: number) {
+        this.booksList[index].isLent = !this.booksList[index].isLent;
+    }
+
+    toggleCdIsLent(index: number) {
+        this.cdsList[index].isLent = !this.cdsList[index].isLent;
+    }
 }

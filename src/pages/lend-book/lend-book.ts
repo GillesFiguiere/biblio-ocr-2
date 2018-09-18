@@ -25,7 +25,7 @@ export class LendBookPage {
   }
 
   onToggleBook() {
-    this.book.isLent = !this.book.isLent;
+    this.itemsService.toggleBookIsLent(this.index);
   }
 
 }

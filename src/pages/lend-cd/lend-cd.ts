@@ -25,7 +25,7 @@ export class LendCdPage {
   }
 
   onToggleCd() {
-    this.cd.isLent = !this.cd.isLent;
+    this.itemsService.toggleCdIsLent(this.index);
   }
 
 }

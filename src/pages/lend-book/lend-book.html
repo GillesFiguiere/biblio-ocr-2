@@ -1,18 +1,59 @@
-<!--
-  Generated template for the LendBookPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>LendBookPage</ion-title>
+    <ion-title>Détail du Livre</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-card>
+    <ion-card-header>{{ book.title }}</ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            Auteur
+          </ion-col>
+          <ion-col>
+            {{ book.author }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            Publication
+          </ion-col>
+          <ion-col>
+            {{ book.publishDate }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            ISBN
+          </ion-col>
+          <ion-col>
+            {{ book.isbn }}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button full color="danger" [disabled]="book.isLent" (click)="onToggleBook()">Prêté</button>
+        </ion-col>
+        <ion-col>
+          <button ion-button full color="secondary" [disabled]="!book.isLent" (click)="onToggleBook()">Rendu</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button clear (click)="dismissModal()">Fermer</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

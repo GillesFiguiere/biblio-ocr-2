@@ -1,18 +1,4 @@
-<!--
-  Generated template for the TabsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>TabsPage</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
-</ion-content>
+<ion-tabs>
+  <ion-tab [root]="bookListPage" tabTitle="Livres" tabIcon="book"></ion-tab>
+  <ion-tab [root]="cdListPage" tabTitle="CDs" tabIcon="disc"></ion-tab>
+</ion-tabs>

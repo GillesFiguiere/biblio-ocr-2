@@ -1,25 +1,34 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ModalController, MenuController } from 'ionic-angular';
+import { Cd } from '../../models/cd';
+import { ItemsService } from '../../services/items.service';
+import { LendCdPage } from '../lend-cd/lend-cd';
 
-/**
- * Generated class for the CdListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
   selector: 'page-cd-list',
   templateUrl: 'cd-list.html',
 })
 export class CdListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  cdsList: Cd[];
+
+  constructor(private modalCtrl: ModalController, private itemsService: ItemsService, private menuCtrl: MenuController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CdListPage');
+  ionViewWillEnter() {
+    this.cdsList = this.itemsService.cdsList.slice();
+    this.cdsList.forEach( cd => {
+      console.log(cd.title);
+    });
+    
   }
 
+  onLoadCd(index: number) {
+    let modal = this.modalCtrl.create(LendCdPage, {index: index});
+    modal.present();
+  }
+
+  // onToggleMenu() {
+  //   this.menuCtrl.open();
+  // }
 }

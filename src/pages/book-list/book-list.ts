@@ -1,25 +1,30 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ModalController, MenuController } from 'ionic-angular';
+import { Book } from '../../models/book';
+import { ItemsService } from '../../services/items.service';
+import { LendBookPage } from '../lend-book/lend-book';
 
-/**
- * Generated class for the BookListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
   selector: 'page-book-list',
   templateUrl: 'book-list.html',
 })
 export class BookListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  booksList: Book[];
+
+  constructor(private modalCtrl: ModalController, private itemsService: ItemsService, private menuCtrl: MenuController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad BookListPage');
+  ionViewWillEnter() {
+    this.booksList = this.itemsService.booksList.slice();
   }
 
+  onLoadBook(index: number) {
+    let modal = this.modalCtrl.create(LendBookPage, {index: index});
+    modal.present();
+  }
+
+  // onToggleMenu() {
+  //   this.menuCtrl.open();
+  // }
 }

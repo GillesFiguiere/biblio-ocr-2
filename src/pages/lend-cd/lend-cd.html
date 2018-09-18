@@ -1,18 +1,51 @@
-<!--
-  Generated template for the LendCdPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>LendCdPage</ion-title>
+    <ion-title>Détail du CD</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-card>
+    <ion-card-header>{{ cd.name }}</ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            Artiste/Groupe
+          </ion-col>
+          <ion-col>
+            {{ cd.author }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            Publication
+          </ion-col>
+          <ion-col>
+            {{ cd.publishDate }}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button full color="danger" [disabled]="cd.isLent" (click)="onToggleCd()">Prêté</button>
+        </ion-col>
+        <ion-col>
+          <button ion-button full color="secondary" [disabled]="!cd.isLent" (click)="onToggleCd()">Rendu</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button clear (click)="dismissModal()">Fermer</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

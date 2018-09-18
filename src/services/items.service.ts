@@ -1,4 +1,4 @@
-export class ItemServices {
+export class ItemsService {
     booksList = [
         {
             title: "The Time Machine",
@@ -12,7 +12,7 @@ export class ItemServices {
             author: "Philip K. Dick",
             publishDate: "1996-05-28",
             isbn: "5533117542",
-            isLent: false
+            isLent: true
         },
         {
             title: "de la Terre À La Lune",

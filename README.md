@@ -7,4 +7,5 @@ Développez une application mobile multiplateforme avec Ionic - TP 1
 3. npm install
 
 # Démarrage
-ionic serve
+1. ionic serve
+2. le navigateur doit s'ouvrir tout seul sinon http://localhost:8100

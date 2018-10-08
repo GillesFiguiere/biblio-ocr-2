@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ModalController } from 'ionic-angular';
-import { Book } from '../../models/book';
 import { ItemsService } from '../../services/items.service';
 import { LendBookPage } from '../lend-book/lend-book';
+
+import Book from '../../models/book';
 
 @Component({
   selector: 'page-book-list',
@@ -22,5 +23,9 @@ export class BookListPage {
   onLoadBook(index: number) {
     let modal = this.modalCtrl.create(LendBookPage, {index: index});
     modal.present();
+  }
+
+  ngOnInit() {
+    //this.itemsService.loadBooks();
   }
 }

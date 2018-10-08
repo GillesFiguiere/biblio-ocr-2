@@ -12,6 +12,10 @@
 
 <ion-content padding>
   <ion-list>
-    <button ion-item *ngFor="let cd of cdsList; let i = index" (click)="onLoadCd(i)" [color]="cd.isLent ? 'dark' : ''">{{ cd.title }}</button>
+    <button ion-item *ngFor="let cd of cdsList; let i = index" (click)="onLoadCd(i)" [color]="cd.isBorrowed ? 'dark' : ''">
+      <ion-label>{{ cd.title }}</ion-label>
+      <ion-note item-end>{{ cd.borrower }}</ion-note>
+    </button>
   </ion-list>
+
 </ion-content>

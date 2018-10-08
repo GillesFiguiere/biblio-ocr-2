@@ -1,12 +1,17 @@
-export class Book {
+import Item from './item';
+
+export default class Book extends Item {
+
+    public isbn: string;
 
     constructor(
-        public title: string,
-        public author: string,
-        public publishDate: string,
-        public isbn: string,
-        public isLent: boolean
+        title: string,
+        author: string,
+        publishDate: string,
+        isbn: string,
+        borrower?: string
     ) {
-
+        super(title, author, publishDate, borrower);
+        this.isbn = isbn;
     }
 }

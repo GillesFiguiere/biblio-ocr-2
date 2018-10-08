@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ModalController } from 'ionic-angular';
-import { Cd } from '../../models/cd';
 import { ItemsService } from '../../services/items.service';
-import { LendCdPage } from '../lend-cd/lend-cd';
+import { LendCDPage } from '../lend-cd/lend-cd';
+import CD from '../../models/cd';
 
 @Component({
   selector: 'page-cd-list',
@@ -10,7 +10,7 @@ import { LendCdPage } from '../lend-cd/lend-cd';
 })
 export class CdListPage {
 
-  cdsList: Cd[];
+  cdsList: CD[];
 
   constructor(private modalCtrl: ModalController, private itemsService: ItemsService) {
   }
@@ -20,7 +20,11 @@ export class CdListPage {
   }
 
   onLoadCd(index: number) {
-    let modal = this.modalCtrl.create(LendCdPage, {index: index});
+    let modal = this.modalCtrl.create(LendCDPage, {index: index});
     modal.present();
+  }
+
+  ngOnInit() {
+    //this.itemsService.loadCDs();
   }
 }

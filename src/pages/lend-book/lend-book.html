@@ -36,18 +36,46 @@
             {{ book.isbn }}
           </ion-col>
         </ion-row>
+        <ion-row>
+            <ion-col>
+              Borrower
+            </ion-col>
+            <ion-col>
+              {{ book.borrower }}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col>
+                Is borrowed?
+              </ion-col>
+              <ion-col>
+                {{ book.isBorrowed }}
+              </ion-col>
+            </ion-row>
       </ion-grid>
     </ion-card-content>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <button ion-button full color="danger" [disabled]="book.isLent" (click)="onToggleBook()">Prêté</button>
-        </ion-col>
-        <ion-col>
-          <button ion-button full color="secondary" [disabled]="!book.isLent" (click)="onToggleBook()">Rendu</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+
+
+    <form [formGroup]="borrowerForm">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>Emprunteur</ion-label>
+              <ion-input type="text" formControlName="borrower"></ion-input>
+              <span ion-text color="danger">{{ errorMessage }}</span>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <button ion-button full color="danger" *ngIf="!book.isBorrowed" (click)="lendBook()">Marquer comme prêté</button>
+            <button ion-button full color="secondary" *ngIf="book.isBorrowed" (click)="getBookBack()">Marquer comme rendu</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+
   </ion-card>
   <ion-grid>
     <ion-row>

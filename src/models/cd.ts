@@ -1,11 +1,14 @@
-export class Cd {
+import Item from './item';
+
+export default class CD extends Item {
 
     constructor(
-        public title: string,
-        public author: string,
-        public publishDate: string,
-        public isLent: boolean
+        title: string,
+        author: string,
+        publishDate: string,
+        borrower?: string
     ) {
-
+        super(title, author, publishDate, borrower);
     }
+
 }

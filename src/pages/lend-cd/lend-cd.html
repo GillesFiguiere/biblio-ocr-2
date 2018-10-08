@@ -30,16 +30,27 @@
         </ion-row>
       </ion-grid>
     </ion-card-content>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <button ion-button full color="danger" [disabled]="cd.isLent" (click)="onToggleCd()">Prêté</button>
-        </ion-col>
-        <ion-col>
-          <button ion-button full color="secondary" [disabled]="!cd.isLent" (click)="onToggleCd()">Rendu</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+
+    <form [formGroup]="borrowerForm">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>Emprunteur</ion-label>
+              <ion-input type="text" formControlName="borrower"></ion-input>
+              <span ion-text color="danger">{{ errorMessage }}</span>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <button ion-button full color="danger" *ngIf="!cd.isBorrowed" (click)="lendCD()">Marquer comme prêté</button>
+            <button ion-button full color="secondary" *ngIf="cd.isBorrowed" (click)="getCDBack()">Marquer comme rendu</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+
   </ion-card>
   <ion-grid>
     <ion-row>

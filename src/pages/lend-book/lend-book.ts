@@ -14,7 +14,6 @@ export class LendBookPage {
   index: number;
   book: Book;
   borrowerForm: FormGroup;
-  errorMessage: string;
 
   constructor(
     public viewCtrl: ViewController,
@@ -38,49 +37,29 @@ export class LendBookPage {
     }
   }
 
-  ionViewWillEnter() {
-
-  }
-
   dismissModal() {
     this.viewCtrl.dismiss();
   }
 
   lendBook() {
-    // const borrower = this.borrowerForm.get('borrower').value.then(
-    //   () => {
-    //     try {
-    //       this.itemsService.setBookBorrower(this.index, borrower);
-    //     } catch (error) {
-    //       this.errorMessage = error;
-    //     }
-    //   },
-    //   (error) => {
-    //     this.errorMessage = error;
-    //   }
-    // );
-
-    if (this.borrowerForm.invalid) {
-      this.errorMessage = "Erreur";
-      return;
+    if (this.borrowerForm.valid) {
+      const borrower = this.borrowerForm.get('borrower').value;
+      try {
+        this.itemsService.setBookBorrower(this.index, borrower);
+      } catch (error) {
+        console.log("Failed to lend book : " + error);
+      }
     }
-
-    const borrower = this.borrowerForm.get('borrower').value;
-    try {
-      this.itemsService.setBookBorrower(this.index, borrower);
-    } catch (error) {
-      this.errorMessage = error;
-    }
-
   }
 
   getBookBack() {
     try {
       this.itemsService.getBookBack(this.index);
     } catch (error) {
-      this.errorMessage = error;
+      console.log("Failed to get book back : " + error);
+      return;
     }
-    this.borrowerForm.setValue({ borrower: null });
+    this.borrowerForm.setValue({ borrower: "" });
   }
 
 }

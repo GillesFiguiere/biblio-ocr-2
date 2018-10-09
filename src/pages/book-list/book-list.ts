@@ -4,6 +4,7 @@ import { ItemsService } from '../../services/items.service';
 import { LendBookPage } from '../lend-book/lend-book';
 
 import Book from '../../models/book';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-book-list',
@@ -12,20 +13,29 @@ import Book from '../../models/book';
 export class BookListPage {
 
   booksList: Book[];
+  booksListSubscription: Subscription;
 
-  constructor(private modalCtrl: ModalController, private itemsService: ItemsService) {
+  constructor(
+    private modalCtrl: ModalController,
+    private itemsService: ItemsService
+  ) { }
+
+  ngOnInit() {
+    this.booksListSubscription = this.itemsService.booksList$.subscribe(
+      (books: Book[]) => {
+        this.booksList = books.slice();
+      }
+    );
+    this.itemsService.emitBooksList();
   }
 
-  ionViewWillEnter() {
-    this.booksList = this.itemsService.booksList.slice();
+  ngOnDestroy() {
+    this.booksListSubscription.unsubscribe();
   }
 
   onLoadBook(index: number) {
-    let modal = this.modalCtrl.create(LendBookPage, {index: index});
+    let modal = this.modalCtrl.create(LendBookPage, { index: index });
     modal.present();
   }
 
-  ngOnInit() {
-    //this.itemsService.loadBooks();
-  }
 }

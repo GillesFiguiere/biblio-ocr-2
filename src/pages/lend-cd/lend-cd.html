@@ -1,62 +1,42 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>Détail du CD</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismissModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
   <ion-card>
-    <ion-card-header>{{ cd.name }}</ion-card-header>
+    <ion-card-header text-center class="gf-card-header">{{ cd.title }}</ion-card-header>
     <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            Artiste/Groupe
-          </ion-col>
-          <ion-col>
-            {{ cd.author }}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            Publication
-          </ion-col>
-          <ion-col>
-            {{ cd.publishDate }}
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <form [formGroup]="borrowerForm">
+        <ion-list>
+          <ion-item>
+            <ion-label>Auteur</ion-label>
+            <ion-input type="text" readonly="true" value="{{ cd.author }}"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Publication</ion-label>
+            <ion-input type="text" readonly="true" value="{{ cd.publishDate }}"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Emprunteur</ion-label>
+            <ion-input type="text" formControlName="borrower"></ion-input>
+            <ion-icon *ngIf="borrowerForm.get('borrower').hasError('required')" item-end name="alert" color="danger"></ion-icon>
+          </ion-item>
+        </ion-list>
+        <button ion-button block color="danger" *ngIf="!cd.isBorrowed" (click)="lendCD()">
+          <ion-icon margin-right name="log-out"></ion-icon> Marquer comme prêté
+        </button>
+        <button ion-button block color="secondary" *ngIf="cd.isBorrowed" (click)="getCDBack()">
+          <ion-icon margin-right name="log-in"></ion-icon> Marquer comme rendu
+        </button>
+      </form>
     </ion-card-content>
-
-    <form [formGroup]="borrowerForm">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-item>
-              <ion-label floating>Emprunteur</ion-label>
-              <ion-input type="text" formControlName="borrower"></ion-input>
-              <span ion-text color="danger">{{ errorMessage }}</span>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <button ion-button full color="danger" *ngIf="!cd.isBorrowed" (click)="lendCD()">Marquer comme prêté</button>
-            <button ion-button full color="secondary" *ngIf="cd.isBorrowed" (click)="getCDBack()">Marquer comme rendu</button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </form>
-
   </ion-card>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <button ion-button clear (click)="dismissModal()">Fermer</button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
 </ion-content>

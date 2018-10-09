@@ -1,87 +1,46 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>Détail du Livre</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismissModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
   <ion-card>
-    <ion-card-header>{{ book.title }}</ion-card-header>
+    <ion-card-header text-center class="gf-card-header">{{ book.title }}</ion-card-header>
     <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            Auteur
-          </ion-col>
-          <ion-col>
-            {{ book.author }}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            Publication
-          </ion-col>
-          <ion-col>
-            {{ book.publishDate }}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            ISBN
-          </ion-col>
-          <ion-col>
-            {{ book.isbn }}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>
-              Borrower
-            </ion-col>
-            <ion-col>
-              {{ book.borrower }}
-            </ion-col>
-          </ion-row>
-          <ion-row>
-              <ion-col>
-                Is borrowed?
-              </ion-col>
-              <ion-col>
-                {{ book.isBorrowed }}
-              </ion-col>
-            </ion-row>
-      </ion-grid>
+      <form [formGroup]="borrowerForm">
+        <ion-list>
+          <ion-item>
+            <ion-label>Auteur</ion-label>
+            <ion-input type="text" readonly="true" value="{{ book.author }}"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Publication</ion-label>
+            <ion-input type="text" readonly="true" value="{{ book.publishDate }}"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>ISBN</ion-label>
+            <ion-input type="text" readonly="true" value="{{ book.isbn }}"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Emprunteur</ion-label>
+            <ion-input type="text" formControlName="borrower"></ion-input>
+            <ion-icon *ngIf="borrowerForm.get('borrower').hasError('required')" item-end name="alert" color="danger"></ion-icon>
+          </ion-item>
+        </ion-list>
+        <button ion-button block color="danger" *ngIf="!book.isBorrowed" (click)="lendBook()">
+          <ion-icon margin-right name="log-out"></ion-icon> Marquer comme prêté
+        </button>
+        <button ion-button block color="secondary" *ngIf="book.isBorrowed" (click)="getBookBack()">
+          <ion-icon margin-right name="log-in"></ion-icon> Marquer comme rendu
+        </button>
+      </form>
     </ion-card-content>
-
-
-    <form [formGroup]="borrowerForm">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-item>
-              <ion-label floating>Emprunteur</ion-label>
-              <ion-input type="text" formControlName="borrower"></ion-input>
-              <span ion-text color="danger">{{ errorMessage }}</span>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <button ion-button full color="danger" *ngIf="!book.isBorrowed" (click)="lendBook()">Marquer comme prêté</button>
-            <button ion-button full color="secondary" *ngIf="book.isBorrowed" (click)="getBookBack()">Marquer comme rendu</button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </form>
-
   </ion-card>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <button ion-button clear (click)="dismissModal()">Fermer</button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
 </ion-content>

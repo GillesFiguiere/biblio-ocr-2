@@ -14,7 +14,6 @@ export class LendCDPage {
   index: number;
   cd: CD;
   borrowerForm: FormGroup;
-  errorMessage: string;
 
   constructor(
     public viewCtrl: ViewController,
@@ -33,6 +32,9 @@ export class LendCDPage {
     this.borrowerForm = this.formBuilder.group({
       borrower: ['', Validators.required]
     });
+    if (this.cd.borrower != null) {
+      this.borrowerForm.setValue({ borrower: this.cd.borrower });
+    }
   }
 
   dismissModal() {
@@ -40,16 +42,13 @@ export class LendCDPage {
   }
 
   lendCD() {
-    if (this.borrowerForm.invalid) {
-      this.errorMessage = "Erreur";
-      return;
-    }
-
-    const borrower = this.borrowerForm.get('borrower').value;
-    try {
-      this.itemsService.setCDBorrower(this.index, borrower);
-    } catch (error) {
-      this.errorMessage = error;
+    if (this.borrowerForm.valid) {
+      const borrower = this.borrowerForm.get('borrower').value;
+      try {
+        this.itemsService.setCDBorrower(this.index, borrower);
+      } catch (error) {
+        console.log("Failed to lend cd : " + error);
+      }
     }
   }
 
@@ -57,8 +56,10 @@ export class LendCDPage {
     try {
       this.itemsService.getCDBack(this.index);
     } catch (error) {
-      this.errorMessage = error;
+      console.log("Failed to get cd back : " + error);
+      return;
     }
+    this.borrowerForm.setValue({ borrower: "" });
   }
 
 }

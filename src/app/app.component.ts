@@ -8,6 +8,7 @@ import * as firebase from 'firebase';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
 import { AuthPage } from '../pages/auth/auth';
+import { ItemsService } from '../services/items.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -25,7 +26,8 @@ export class MyApp {
   constructor(platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
-    private menuCtrl: MenuController) {
+    private menuCtrl: MenuController,
+    private itemsService: ItemsService) {
     platform.ready().then(() => {
       // Initialize Firebase
       var config = {
@@ -49,6 +51,9 @@ export class MyApp {
           }
         }
       );
+
+      this.itemsService.loadBooksFromLocalStorage();
+      this.itemsService.loadCDsFromLocalStorage();
 
       statusBar.styleDefault();
       splashScreen.hide();

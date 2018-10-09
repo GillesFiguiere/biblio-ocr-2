@@ -11,5 +11,17 @@
 
 
 <ion-content padding>
-  Hello World!
+    <ion-list>
+      <ion-list-header>
+        Cloud
+      </ion-list-header>
+      <button ion-item (click)="onSaveToCloud()">
+          <ion-icon name="cloud-upload" item-start color="primary"></ion-icon>
+          Sauvegarder dans le cloud
+      </button>
+      <button ion-item (click)="onLoadFromCloud()">
+          <ion-icon name="cloud-download" item-start color="danger"></ion-icon>
+          Restaurer depuis le cloud
+      </button>
+    </ion-list>
 </ion-content>

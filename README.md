@@ -1,8 +1,8 @@
 # biblio-ionic
-Développez une application mobile multiplateforme avec Ionic - TP 1
+Développez une application mobile multiplateforme avec Ionic - TP 2
 
 # Installation
-1. git clone https://github.com/GillesOpenClassRoom/biblio-ionic.git
+1. git clone https://github.com/GillesOpenClassRoom/biblio-ocr-2.git
 2. cd biblio-ionic
 3. npm install
 

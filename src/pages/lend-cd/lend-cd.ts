@@ -14,6 +14,7 @@ export class LendCDPage {
   index: number;
   cd: CD;
   borrowerForm: FormGroup;
+  borrowerFormInvalid: boolean = false;
 
   constructor(
     public viewCtrl: ViewController,
@@ -48,7 +49,11 @@ export class LendCDPage {
         this.itemsService.setCDBorrower(this.index, borrower);
       } catch (error) {
         console.log("Failed to lend cd : " + error);
+        return;
       }
+      this.dismissModal();
+    } else if (this.borrowerForm.get('borrower').hasError('required')) {
+      this.borrowerFormInvalid = true;
     }
   }
 
@@ -60,6 +65,7 @@ export class LendCDPage {
       return;
     }
     this.borrowerForm.setValue({ borrower: "" });
+    this.dismissModal();
   }
 
 }

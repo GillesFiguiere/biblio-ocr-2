@@ -14,6 +14,7 @@ export class LendBookPage {
   index: number;
   book: Book;
   borrowerForm: FormGroup;
+  borrowerFormInvalid: boolean = false;
 
   constructor(
     public viewCtrl: ViewController,
@@ -48,7 +49,11 @@ export class LendBookPage {
         this.itemsService.setBookBorrower(this.index, borrower);
       } catch (error) {
         console.log("Failed to lend book : " + error);
+        return;
       }
+      this.dismissModal();
+    } else if (this.borrowerForm.get('borrower').hasError('required')) {
+      this.borrowerFormInvalid = true;
     }
   }
 
@@ -60,6 +65,7 @@ export class LendBookPage {
       return;
     }
     this.borrowerForm.setValue({ borrower: "" });
+    this.dismissModal();
   }
 
 }
